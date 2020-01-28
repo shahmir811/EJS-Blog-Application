@@ -1,0 +1,46 @@
+<%- include('./partials/navbar.ejs') %>
+
+<div class="container mt-20">
+
+  <%- include('./partials/messages.ejs') %>
+
+  <div class="row">
+    <div class="col-md-12">   
+      
+      <a href="/posts/add" class="btn btn-success btn-lg">Add new post</a>
+
+      <% if(posts.length < 1 ) { %>
+        <h3>No post has been added yet</h3>
+      <% } else { %>
+        <h3 class="mlp-30">You have following <strong><%= posts.length %></strong> posts</h3>
+
+          <div class="list-group mt-20">
+
+          <% posts.forEach(post => { %>
+            <a href="/posts/<%= post.id %>/view" class="list-group-item list-group-item-action">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1"><%= post.title %></h5>
+                <small><%= moment(post.createdAt).fromNow() %></small>
+              </div>
+              <p class="mb-1"><%= post.description %></p>
+              <% if(post.tags.length > 0) { %>
+
+                <% post.tags.forEach(tag => { %>
+                <small class="text-muted">
+                  <span class="badge badge-success"><%= tag.name %></span>
+                </small>
+                <% }) %>
+
+              <% } %>
+
+            </a>
+          </div>
+
+          <% }) %>
+
+      <% } %>
+
+    </div>
+  </div>
+
+</div>

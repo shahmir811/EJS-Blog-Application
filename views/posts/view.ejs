@@ -1,0 +1,65 @@
+<%- include('../partials/navbar.ejs') %>
+
+<div class="container mt-20">
+
+  <%- include('../partials/messages.ejs') %>
+
+  <div class="row">
+    <div class="col-md-12">   
+
+    <a href="/dashboard" class="btn btn-success btn-lg">All Posts</a>
+
+    </div>
+  </div>
+
+  <div class="row mt-20">
+    <div class="col-6">
+      <h1><%= post.title %></h1>
+      <p><%= post.description %></p>
+      
+      <% post.tags.forEach(tag => { %>
+        <small class="text-muted">
+          <span class="badge badge-success"><%= tag.name %></span>
+        </small>
+      <% }) %>
+      
+
+      <% if(post.path !== null) { %>
+        <img src="<%= imagePath %>" alt="<%= post.title %>" class="full-width mt-20">
+      <% } else { %>
+        <h3>No image to preview</h3>
+      <% } %>
+
+    </div>
+    <div class="col-6">
+      <a href="/posts/<%= post.id %>/edit" class="btn btn-primary">Edit Post</a>
+      <a href="#" class="btn btn-danger" onclick="deletePostConfirmation(<%= post.id %>);">Delete Post</a>
+
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  
+  async function deletePostConfirmation(postId) {
+    console.log("PostID: ", postId);
+    if(confirm("Are you sure to delete this post ?")) {
+      console.log("YES");
+
+      try {
+      let response = await fetch(`/posts/${postId}/delete`, { method: 'post' });
+      response = response.json()
+      
+      window.location.replace('/dashboard');
+
+      } catch (error) {
+        console.log("Error: ", error);
+      }
+
+    } 
+    
+  }
+
+</script>
