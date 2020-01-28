@@ -1,6 +1,6 @@
 # Blog App in NodeJS
 
-> In this application, I was primarily focus on how passport.js works with local strategy. Added multer to upload images. User with Sequelize and postgreSQL for databases.
+> In this application, I was primarily focus on how passport.js works with local strategy. Added multer to upload images. Used with Sequelize and postgreSQL for databases.
 ---
 
 ## Usage
